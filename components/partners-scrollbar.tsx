@@ -61,7 +61,7 @@ export default function PartnersScrollbar() {
   }, [])
 
   return (
-    <div className="h-screen flex flex-col sticky top-0">
+    <div className="h-[620px] flex flex-col sticky top-0 ">
       {/* Header */}
       <div className="p-4 border-b border-gray-200 text-center">
         <h3 className="font-bold text-sm text-gray-800">Event</h3>

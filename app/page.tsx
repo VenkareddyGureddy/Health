@@ -14,7 +14,7 @@ export default function HomePage() {
         </div>
 
         {/* Right - Partners Sidebar */}
-        <div className="w-32 border-l border-gray-200">
+        <div className="w-32  border-l border-gray-200">
           <PartnersScrollbar />
         </div>
       </div>
