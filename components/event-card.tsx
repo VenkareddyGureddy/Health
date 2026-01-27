@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '../components/ui/button'
 import { Share2, MapPin, Mic, Clock } from 'lucide-react'
 import { useRouter } from "next/navigation";
 

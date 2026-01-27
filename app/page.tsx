@@ -1,7 +1,7 @@
-import FeedbackBanner from '@/components/FeedbackBanner'
-import HeroSection from '@/components/hero-section'
-import PartnersScrollbar from '@/components/partners-scrollbar'
-import UpcomingEvents from '@/components/upcoming-events'
+import FeedbackBanner from '../components/FeedbackBanner'
+import HeroSection from '../components/hero-section'
+import PartnersScrollbar from '../components/partners-scrollbar'
+import UpcomingEvents from '../components/upcoming-events'
 
 export default function HomePage() {
   return (
