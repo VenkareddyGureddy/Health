@@ -192,12 +192,10 @@
 //     </div>
 //   )
 // }
-
 'use client'
-
 import EventCard from "./event-card"
-
-
+import EventCard1 from "./event-card1"
+import EventCard2 from "./event-card2"
 
 const events = [
   {
@@ -246,17 +244,31 @@ const events = [
 ]
 
 export default function UpcomingEvents() {
+  const handleRegister = (id) => console.log('Register', id)
+  const handleShare = (id) => console.log('Share', id)
+
   return (
     <section className="bg-gray-50 px-6 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-fr">
-        {events.map((event) => (
-          <EventCard
-            key={event.id}
-            {...event}
-            onRegister={() => console.log('Register', event.id)}
-            onShare={() => console.log('Share', event.id)}
-          />
-        ))}
+      <div className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {events.map((event, index) => {
+            // Select a component based on the index (0, 1, 2)
+            let CardComponent;
+            
+            if (index === 0) CardComponent = EventCard;
+            else if (index === 1) CardComponent = EventCard1;
+            else CardComponent = EventCard2;
+
+            return (
+              <CardComponent
+                key={event.id}
+                {...event}
+                onRegister={() => handleRegister(event.id)}
+                onShare={() => handleShare(event.id)}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   )
