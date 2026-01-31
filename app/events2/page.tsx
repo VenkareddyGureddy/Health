@@ -55,8 +55,8 @@ export default function EventsPage() {
               <span className="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-600">
                 Featured
               </span>
-              <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-700">
-                Hybrid
+              <span className="px-3 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-600">
+                Virtual
               </span>
               <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-600">
                 FREE
@@ -64,24 +64,22 @@ export default function EventsPage() {
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              Cancer Awareness in Elderly
+              Understanding and Preventing Osteoporosis
             </h1>
 
             {/* Speaker */}
             <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-5 border rounded-xl bg-white shadow-sm">
               <div className="h-12 w-12 flex items-center justify-center rounded-full bg-teal-100 text-teal-700 font-bold shrink-0">
-                DS
+                D
               </div>
               <div className="text-center sm:text-left">
-                <h3 className="font-semibold text-gray-900">
-                  Dr. Somasundar Ponnandai
-                </h3>
+                <h3 className="font-semibold text-gray-900">David</h3>
                 <p className="text-sm text-teal-600">
-                  MD, MPH, FACS – Chairman of Surgery
+                  Sathya Sai International
                 </p>
                 <p className="text-sm text-gray-600 mt-2">
-                  Distinguished Surgical Oncologist specializing in geriatric
-                  oncology.
+                  Expert-led session focusing on bone health, prevention
+                  strategies, and long-term wellness.
                 </p>
               </div>
             </div>
@@ -90,9 +88,9 @@ export default function EventsPage() {
             <section>
               <h2 className="text-lg font-semibold mb-2">About the Event</h2>
               <p className="text-gray-600">
-                Join Dr. Somasundar Ponnandai for a comprehensive cancer
-                awareness camp focused on early detection, prevention strategies,
-                and treatment options for elderly patients.
+                This virtual session focuses on understanding osteoporosis, its
+                causes, prevention methods, and lifestyle changes that promote
+                stronger bones and healthier aging.
               </p>
             </section>
 
@@ -101,9 +99,9 @@ export default function EventsPage() {
               <h2 className="text-lg font-semibold mb-3">✨ Why Attend?</h2>
               <ul className="space-y-3 text-gray-600">
                 {[
-                  "Learn from experts in culturally tailored health education",
-                  "Network with peers and professionals",
-                  "Take the first step toward a healthier future",
+                  "Understand early signs and risk factors of osteoporosis",
+                  "Learn prevention techniques for long-term bone health",
+                  "Interact with health educators in a global virtual setting",
                 ].map((text) => (
                   <li key={text} className="flex gap-2">
                     <CheckCircle2 className="h-5 w-5 text-teal-600 shrink-0" />
@@ -150,15 +148,15 @@ export default function EventsPage() {
               <div className="space-y-3 text-sm text-gray-600">
                 <div className="flex gap-2">
                   <MapPin className="h-4 w-4 text-teal-600" />
-                  Shirdi, Maharashtra
+                  Global (Online)
                 </div>
                 <div className="flex gap-2">
                   <CalendarDays className="h-4 w-4 text-teal-600" />
-                  February 14, 2025
+                  Friday, 18 Jan
                 </div>
                 <div className="flex gap-2">
                   <Clock className="h-4 w-4 text-teal-600" />
-                  8:30 PM • 60 min
+                  10:00 AM • Virtual Session
                 </div>
               </div>
 
@@ -208,120 +206,119 @@ export default function EventsPage() {
       {/* ================= MODAL ================= */}
       {open && (
         <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-center justify-center px-4">
-          <div className="bg-white w-full max-w-lg h-[100svh] sm:h-auto sm:max-h-[90vh] rounded-2xl shadow-xl flex flex-col overflow-hidden">
-            {/* Header */}
-            <div className="flex justify-between items-center px-6 py-4 border-b bg-gray-50">
-              <h2 className="font-semibold text-lg">Create Registration</h2>
-              <button onClick={() => setOpen(false)}>
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-
-            {/* Scrollable Form */}
-            <form
-              onSubmit={handleSubmit}
-              className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4"
-            >
-              <input
-                required
-                placeholder="Event Name"
-                className="w-full border rounded-lg px-4 py-3"
-              />
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <input
-                    type="datetime-local"
-                    value={startDateTime}
-                    onChange={(e) => setStartDateTime(e.target.value)}
-                    className="w-full border rounded-lg px-4 py-3"
-                    required
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    {formatStartDate(startDateTime)}
-                  </p>
+                  <div className="bg-white w-full max-w-lg h-[100svh] sm:h-auto sm:max-h-[90vh] rounded-2xl shadow-xl flex flex-col overflow-hidden">
+                    {/* Header */}
+                    <div className="flex justify-between items-center px-6 py-4 border-b bg-gray-50">
+                      <h2 className="font-semibold text-lg">Create Registration</h2>
+                      <button onClick={() => setOpen(false)}>
+                        <X className="h-5 w-5" />
+                      </button>
+                    </div>
+        
+                    {/* Scrollable Form */}
+                    <form
+                      onSubmit={handleSubmit}
+                      className="flex-1 overflow-y-auto px-4 sm:px-6 py-4 space-y-4"
+                    >
+                      <input
+                        required
+                        placeholder="Event Name"
+                        className="w-full border rounded-lg px-4 py-3"
+                      />
+        
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <input
+                            type="datetime-local"
+                            value={startDateTime}
+                            onChange={(e) => setStartDateTime(e.target.value)}
+                            className="w-full border rounded-lg px-4 py-3"
+                            required
+                          />
+                          <p className="text-xs text-gray-500 mt-1">
+                            {formatStartDate(startDateTime)}
+                          </p>
+                        </div>
+        
+                        <input
+                          type="time"
+                          value={endTime}
+                          onChange={(e) => setEndTime(e.target.value)}
+                          className="w-full border rounded-lg px-4 py-3"
+                          required
+                        />
+                      </div>
+        
+                      <div className="relative">
+                        <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                        <input
+                          placeholder="Choose Location"
+                          className="w-full border rounded-lg pl-11 pr-4 py-3"
+                        />
+                      </div>
+        
+                      <textarea
+                        rows={3}
+                        placeholder="Add Description"
+                        className="w-full border rounded-lg px-4 py-3 resize-none"
+                      />
+        
+                      <div className="flex justify-between items-center border rounded-lg px-4 py-3">
+                        <span className="text-sm font-medium">Require Approval</span>
+                        <button
+                          type="button"
+                          onClick={() => setRequireApproval(!requireApproval)}
+                          className={`h-6 w-11 rounded-full transition ${
+                            requireApproval ? "bg-teal-600" : "bg-gray-300"
+                          }`}
+                        >
+                          <span
+                            className={`block h-5 w-5 bg-white rounded-full transition ${
+                              requireApproval ? "translate-x-5" : "translate-x-1"
+                            }`}
+                          />
+                        </button>
+                      </div>
+        
+                      <div className="grid grid-cols-2 gap-3">
+                        <select className="border rounded-lg px-4 py-3 bg-white">
+                          <option>Free</option>
+                          <option>Paid</option>
+                        </select>
+                        <select className="border rounded-lg px-4 py-3 bg-white">
+                          <option>Public</option>
+                          <option>Private</option>
+                        </select>
+                      </div>
+        
+                      <select className="w-full border rounded-lg px-4 py-3 bg-white">
+                        <option>Unlimited Capacity</option>
+                        <option>50</option>
+                        <option>100</option>
+                        <option>200</option>
+                      </select>
+                    </form>
+        
+                    {/* Footer */}
+                    <div className="border-t bg-white px-4 sm:px-6 py-3">
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => setOpen(false)}
+                          className="w-1/2 border rounded-lg py-3 font-semibold"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          onClick={handleSubmit}
+                          className="w-1/2 bg-teal-600 text-white rounded-lg py-3 font-semibold"
+                        >
+                          Confirm
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-
-                <input
-                  type="time"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
-                  className="w-full border rounded-lg px-4 py-3"
-                  required
-                />
-              </div>
-
-              <div className="relative">
-                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                <input
-                  placeholder="Choose Location"
-                  className="w-full border rounded-lg pl-11 pr-4 py-3"
-                />
-              </div>
-
-              <textarea
-                rows={3}
-                placeholder="Add Description"
-                className="w-full border rounded-lg px-4 py-3 resize-none"
-              />
-
-              <div className="flex justify-between items-center border rounded-lg px-4 py-3">
-                <span className="text-sm font-medium">Require Approval</span>
-                <button
-                  type="button"
-                  onClick={() => setRequireApproval(!requireApproval)}
-                  className={`h-6 w-11 rounded-full transition ${
-                    requireApproval ? "bg-teal-600" : "bg-gray-300"
-                  }`}
-                >
-                  <span
-                    className={`block h-5 w-5 bg-white rounded-full transition ${
-                      requireApproval ? "translate-x-5" : "translate-x-1"
-                    }`}
-                  />
-                </button>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <select className="border rounded-lg px-4 py-3 bg-white">
-                  <option>Free</option>
-                  <option>Paid</option>
-                </select>
-                <select className="border rounded-lg px-4 py-3 bg-white">
-                  <option>Public</option>
-                  <option>Private</option>
-                </select>
-              </div>
-
-              <select className="w-full border rounded-lg px-4 py-3 bg-white">
-                <option>Unlimited Capacity</option>
-                <option>50</option>
-                <option>100</option>
-                <option>200</option>
-              </select>
-
-            </form>
-
-            {/* Footer */}
-            <div className="border-t bg-white px-4 sm:px-6 py-3">
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setOpen(false)}
-                  className="w-1/2 border rounded-lg py-3 font-semibold"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  onClick={handleSubmit}
-                  className="w-1/2 bg-teal-600 text-white rounded-lg py-3 font-semibold"
-                >
-                  Confirm
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
       )}
     </>
   )

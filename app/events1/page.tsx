@@ -299,7 +299,6 @@ export default function EventsPage() {
                 <option>100</option>
                 <option>200</option>
               </select>
-
             </form>
 
             {/* Footer */}

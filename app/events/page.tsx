@@ -9,6 +9,8 @@ import {
   MapPin,
 } from "lucide-react";
 
+/* ================= DATA ================= */
+
 const events = [
   {
     type: "LIVE",
@@ -57,33 +59,41 @@ const events = [
   },
 ];
 
+/* ================= COMPONENT ================= */
+
 export default function EventCards() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-12">
+    <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 py-10 sm:py-12">
       {/* Header */}
-      <div className="flex items-center gap-3 mb-8">
-        <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 text-teal-700 text-sm font-medium">
+      <div className="flex flex-wrap items-center gap-3 mb-8">
+        <span className="flex items-center gap-2 px-4 py-2 rounded-full bg-teal-50 text-teal-700 text-xs sm:text-sm font-medium">
           <CalendarDays className="h-4 w-4" />
           8 Events Available
         </span>
-        <span className="flex items-center gap-2 text-green-600 text-sm">
+
+        <span className="flex items-center gap-2 text-green-600 text-xs sm:text-sm">
           <span className="h-2 w-2 rounded-full bg-green-500" />
           Live Now
         </span>
       </div>
 
-      {/* Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {/* Cards Grid */}
+      <div
+        className="grid gap-6 sm:gap-8 
+        [grid-template-columns:repeat(auto-fit,minmax(280px,1fr))]"
+      >
         {events.map((event, i) => (
           <div
             key={i}
-            className="bg-white rounded-3xl shadow-lg overflow-hidden border hover:shadow-xl transition"
+            className="bg-white rounded-2xl sm:rounded-3xl border 
+            shadow-md hover:shadow-xl transition overflow-hidden"
           >
             {/* Gradient Header */}
             <div
-              className={`relative h-32 bg-gradient-to-r ${event.gradient}`}
+              className={`relative h-24 sm:h-28 md:h-32 bg-gradient-to-r ${event.gradient}`}
             >
-              <div className="absolute top-4 left-4 flex items-center gap-2">
+              {/* Type */}
+              <div className="absolute top-3 left-3">
                 <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-semibold flex items-center gap-1">
                   {event.type === "LIVE" && <Video className="h-3 w-3" />}
                   {event.type === "IRL" && <MapPin className="h-3 w-3" />}
@@ -92,14 +102,15 @@ export default function EventCards() {
                 </span>
               </div>
 
-              <div className="absolute top-4 right-4">
+              {/* Free badge */}
+              <div className="absolute top-3 right-3">
                 <span className="px-3 py-1 rounded-full bg-green-500 text-white text-xs font-semibold">
                   FREE!
                 </span>
               </div>
 
               {/* Rating */}
-              <div className="absolute bottom-4 left-4 flex gap-1">
+              <div className="absolute bottom-3 left-3 flex gap-1">
                 {[1, 2, 3, 4].map((_, i) => (
                   <Star
                     key={i}
@@ -111,20 +122,24 @@ export default function EventCards() {
             </div>
 
             {/* Content */}
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-3 sm:space-y-4">
+              {/* Category */}
               <span className="inline-block px-3 py-1 rounded-full bg-teal-50 text-teal-700 text-xs font-medium">
                 {event.category}
               </span>
 
-              <h3 className="font-semibold text-lg text-gray-900">
+              {/* Title */}
+              <h3 className="font-semibold text-base sm:text-lg text-gray-900 leading-snug">
                 {event.title}
               </h3>
 
-              <p className="text-sm text-gray-600 line-clamp-3">
+              {/* Description */}
+              <p className="text-xs sm:text-sm text-gray-600 line-clamp-3">
                 {event.description}
               </p>
 
-              <div className="flex items-center gap-4 text-sm text-gray-500">
+              {/* Meta */}
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-xs sm:text-sm text-gray-500">
                 <span className="flex items-center gap-1">
                   <CalendarDays className="h-4 w-4" />
                   {event.date}
@@ -151,7 +166,7 @@ export default function EventCards() {
                 </div>
                 <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
                   <div
-                    className={`h-full ${
+                    className={`h-full transition-all duration-500 ${
                       event.filled === 100
                         ? "bg-gradient-to-r from-orange-400 to-red-500"
                         : "bg-gradient-to-r from-teal-500 to-orange-400"
@@ -162,12 +177,12 @@ export default function EventCards() {
               </div>
 
               {/* Doctor */}
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-gradient-to-br from-green-600 to-orange-500 text-white flex items-center justify-center text-sm font-semibold">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="h-9 w-9 sm:h-10 sm:w-10 rounded-full bg-gradient-to-br from-green-600 to-orange-500 text-white flex items-center justify-center text-sm font-semibold">
                   {event.initials}
                 </div>
-                <div>
-                  <p className="text-sm font-semibold text-gray-900">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold text-gray-900 truncate">
                     {event.doctor} 🏆
                   </p>
                   <p className="text-xs text-gray-500">{event.role}</p>
@@ -176,7 +191,10 @@ export default function EventCards() {
 
               {/* CTA */}
               <button
-                className={`w-full py-3 rounded-xl text-white font-semibold bg-gradient-to-r ${event.gradient}`}
+                className={`w-full py-3 sm:py-3.5 rounded-xl 
+                text-sm sm:text-base font-semibold text-white 
+                bg-gradient-to-r ${event.gradient}
+                active:scale-[0.98] transition`}
               >
                 {event.cta}
               </button>

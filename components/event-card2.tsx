@@ -116,7 +116,7 @@ export default function EventCard({
           <div className="flex items-center gap-2.5 pt-4">
             <Button
               className="bg-teal-700 hover:bg-teal-800 text-white px-8 py-5 rounded-xl text-sm font-semibold flex-1"
-              onClick={() => router.push("/event3")}
+              onClick={() => router.push("/events3")}
             >
               Register
             </Button>
