@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import React, { useState } from "react"
+import React, { useState } from 'react'
 import {
   MapPin,
   CalendarDays,
@@ -12,98 +12,126 @@ import {
   Star,
   CheckCircle2,
   CalendarPlus,
-  X,
-} from "lucide-react"
+  X, // <--- ADDED IMPORT
+} from 'lucide-react'
+import { events } from '@/lib/events'
+import { notFound } from 'next/navigation'
+import Link from 'next/link'
 
-export default function EventsPage() {
+export default function EventDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>
+}) {
+  // State for the Modal
   const [open, setOpen] = useState(false)
-  const [startDateTime, setStartDateTime] = useState("")
-  const [endTime, setEndTime] = useState("")
+  const [startDateTime, setStartDateTime] = useState('')
+  const [endTime, setEndTime] = useState('')
   const [requireApproval, setRequireApproval] = useState(false)
 
-  const formatStartDate = (value: string) => {
-    if (!value) return "Select start date & time"
-    const date = new Date(value)
-    if (isNaN(date.getTime())) return "Invalid Date"
+  // Placeholder for params (In Next.js 15, params is a Promise)
+  // Note: Since this is now a Client Component, fetching data via 'events.find'
+  // works if 'events' is a static import. If it requires DB access, 
+  // you should fetch it in a Server Component and pass it as props.
+  const [event, setEvent] = useState<typeof events[0] | null>(null)
 
-    return date.toLocaleString("en-IN", {
-      weekday: "short",
-      day: "2-digit",
-      month: "short",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true,
+  React.useEffect(() => {
+    params.then(({ id }) => {
+      const foundEvent = events.find((e) => e.id === Number(id))
+      if (!foundEvent) notFound()
+      setEvent(foundEvent)
     })
-  }
+  }, [params])
 
+  // Handlers
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    console.log({ startDateTime, endTime, requireApproval })
+    // Handle form submission logic here
+    console.log('Submitting:', { startDateTime, endTime, requireApproval })
     setOpen(false)
   }
 
+  const formatStartDate = (dateString: string) => {
+    if (!dateString) return ''
+    const date = new Date(dateString)
+    return date.toLocaleDateString(undefined, {
+      weekday: 'short',
+      month: 'short',
+      day: 'numeric',
+    })
+  }
+
+  if (!event) return <div>Loading...</div>
+
   return (
     <>
-      {/* ================= MAIN PAGE ================= */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* ================= LEFT ================= */}
-          <div className="md:col-span-2 space-y-6 sm:space-y-8">
+          <div className="md:col-span-2 space-y-8">
             {/* Badges */}
             <div className="flex gap-2 flex-wrap">
-              <span className="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-600">
-                Featured
-              </span>
+              {event.featured && (
+                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-orange-100 text-orange-600">
+                  Featured
+                </span>
+              )}
               <span className="px-3 py-1 text-xs font-semibold rounded-full bg-gray-100 text-gray-700">
-                Hybrid
+                {event.type}
               </span>
-              <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-600">
-                FREE
-              </span>
+              {event.free && (
+                <span className="px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-600">
+                  FREE
+                </span>
+              )}
             </div>
 
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              Cancer Awareness in Elderly
+              {event.title}
             </h1>
 
             {/* Speaker */}
-            <div className="flex flex-col sm:flex-row gap-4 p-4 sm:p-5 border rounded-xl bg-white shadow-sm">
-              <div className="h-12 w-12 flex items-center justify-center rounded-full bg-teal-100 text-teal-700 font-bold shrink-0">
-                DS
+            <div className="flex gap-4 p-5 border rounded-xl bg-white shadow-sm">
+              <div className="h-12 w-12 flex items-center justify-center rounded-full bg-teal-100 text-teal-700 font-bold">
+                {event.speaker
+                  .split(' ')
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join('')}
               </div>
-              <div className="text-center sm:text-left">
+              <div>
                 <h3 className="font-semibold text-gray-900">
-                  Dr. Somasundar Ponnandai
+                  {event.speaker}
                 </h3>
                 <p className="text-sm text-teal-600">
-                  MD, MPH, FACS – Chairman of Surgery
+                  {event.speakerCredentials}
                 </p>
-                <p className="text-sm text-gray-600 mt-2">
-                  Distinguished Surgical Oncologist specializing in geriatric
-                  oncology.
+                <p className="text-sm text-gray-600">
+                  {event.speakerDescription}
                 </p>
               </div>
             </div>
 
             {/* About */}
             <section>
-              <h2 className="text-lg font-semibold mb-2">About the Event</h2>
+              <h2 className="text-lg font-semibold mb-2">
+                About the Event
+              </h2>
               <p className="text-gray-600">
-                Join Dr. Somasundar Ponnandai for a comprehensive cancer
-                awareness camp focused on early detection, prevention strategies,
-                and treatment options for elderly patients.
+                {event. aboutEvent}
               </p>
             </section>
 
             {/* Why Attend */}
             <section>
-              <h2 className="text-lg font-semibold mb-3">✨ Why Attend?</h2>
+              <h2 className="text-lg font-semibold mb-3">
+                ✨ Why Attend?
+              </h2>
               <ul className="space-y-3 text-gray-600">
                 {[
-                  "Learn from experts in culturally tailored health education",
-                  "Network with peers and professionals",
-                  "Take the first step toward a healthier future",
+                  'Learn from expert speakers',
+                  'Get awareness & prevention guidance',
+                  'Join a global virtual community',
                 ].map((text) => (
                   <li key={text} className="flex gap-2">
                     <CheckCircle2 className="h-5 w-5 text-teal-600 shrink-0" />
@@ -144,25 +172,27 @@ export default function EventsPage() {
 
           {/* ================= RIGHT ================= */}
           <aside className="md:col-span-1">
-            <div className="lg:sticky lg:top-24 border rounded-xl p-5 sm:p-6 bg-white shadow-sm space-y-6">
+            <div className="lg:sticky lg:top-24 border rounded-xl p-6 bg-white shadow-sm space-y-6">
               <h3 className="font-semibold">Event Details</h3>
 
               <div className="space-y-3 text-sm text-gray-600">
                 <div className="flex gap-2">
                   <MapPin className="h-4 w-4 text-teal-600" />
-                  Shirdi, Maharashtra
+                  {event.location}
                 </div>
+
                 <div className="flex gap-2">
                   <CalendarDays className="h-4 w-4 text-teal-600" />
-                  February 14, 2025
+                  {event.month} {event.date}, {event.dayName}
                 </div>
+
                 <div className="flex gap-2">
                   <Clock className="h-4 w-4 text-teal-600" />
-                  8:30 PM • 60 min
+                  {event.time}
                 </div>
               </div>
 
-              <button
+          <button
                 onClick={() => setOpen(true)}
                 className="w-full py-3 rounded-lg bg-teal-600 text-white font-semibold hover:bg-teal-700"
               >
@@ -171,12 +201,12 @@ export default function EventsPage() {
 
               {/* Share */}
               <div className="space-y-2">
-                <p className="text-sm text-gray-500 text-center flex justify-center gap-2 items-center">
+                <p className="text-sm text-gray-500 text-center flex justify-center gap-2">
                   <Share2 className="h-4 w-4" />
                   Share with family & friends
                 </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   <button className="border rounded-lg py-3 text-sm">
                     <MessageCircle className="inline h-4 w-4 mr-1 text-green-600" />
                     WhatsApp
@@ -299,6 +329,7 @@ export default function EventsPage() {
                 <option>100</option>
                 <option>200</option>
               </select>
+
             </form>
 
             {/* Footer */}
@@ -311,8 +342,7 @@ export default function EventsPage() {
                   Cancel
                 </button>
                 <button
-                  type="submit"
-                  onClick={handleSubmit}
+                  type="submit" // Removed onClick here to prevent double submission, keeping form onSubmit
                   className="w-1/2 bg-teal-600 text-white rounded-lg py-3 font-semibold"
                 >
                   Confirm
